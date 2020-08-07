@@ -10,7 +10,7 @@ handlers:
     stream: ext://sys.stdout
   warning:
     class: logging.FileHandler
-    filename: ./Logs/DebugLogs/python.log
+    filename: ./Logs/DebugLogs/debug.log
     mode: a
     level: INFO
     formatter: simple
