@@ -75,6 +75,7 @@ fabric.properties
 
 # IntelliJ project files
 .idea
+/.idea/vcs.xml
 *.iml
 *.txt
 *.zip
