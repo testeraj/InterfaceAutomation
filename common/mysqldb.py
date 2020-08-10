@@ -1,5 +1,5 @@
 import pymysql
-from Project.Commons.log import LogManage, LogRecord
+from common.log import LogRecord
 
 
 class Mysql(object):
@@ -22,12 +22,12 @@ class Mysql(object):
                 self._mycursor.execute(sql)
                 if level == 0:
                     result = self._mycursor.fetchone()
-                    LogRecord().write_into_log(result, '--->', self._mycursor.mogrify(sql))
+                    LogRecord().write_into_log("{} ---> {}".format(result, self._mycursor.mogrify(sql)))
                     self._mysqldb.commit()
                     return result
                 elif level == 1:
                     result = self._mycursor.fetchall()
-                    LogRecord().write_into_log(result, '--->', self._mycursor.mogrify(sql))
+                    LogRecord().write_into_log("{} ---> {}".format(result, self._mycursor.mogrify(sql)))
                     self._mysqldb.commit()  # 提交修改
                     return result
             elif 'update' in sql:
