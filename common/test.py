@@ -1,12 +1,7 @@
 def data(data, isrow=True):
-    if isinstance(data, list):
-        if not isinstance(data[0], list):
-            if isrow is True:
-                print(data)  # 行
-        else:
-            print(data)
-    else:
-        raise TypeError('The argument must be a list')
+    a = all(isinstance(row, list) for row in data)
+    b = (isinstance(row, list) for row in data)
+    print(a)
 
 
 data([[1, 2], 1])
