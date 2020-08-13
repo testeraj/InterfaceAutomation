@@ -44,7 +44,8 @@ class Execl:
             elif all(isinstance(row, list) for row in data):
                 if len(data) <= 1:
                     raise TypeError('The length of a 2d list should be greater than 1')
-                if len(data[0]) != len([row for row in data]):
+                if len(data) != \
+                        len([le for le in list(map(lambda x: len(x), [row for row in data])) if len(data[0]) == le]):
                     raise TypeError('All elements of a 2d list must be of the same length')
                 else:
                     self.sheet.range(start).value = data
@@ -58,6 +59,8 @@ class Execl:
         self.workbook.close()
         self.__app.quit()
 
-execl = Execl('test.xlsx')
-execl.writeexecl([[1, 3, 2],1])
-execl.close()
+
+if __name__ == '__main__':
+    execl = Execl('test.xlsx')
+    execl.writeexecl([[1, 3, 2], [1, 3, 6]])
+    execl.close()

@@ -1,8 +1,10 @@
 def data(data, isrow=True):
-    a = all(isinstance(row, list) for row in data)
-    b = (isinstance(row, list) for row in data)
-    print(a)
+    print(len(data))
+    print(([le for le in list(map(lambda x: len(x), [row for row in data])) if len(data[0]) == le]))
+    if len(data) != len([le for le in list(map(lambda x: len(x), [row for row in data])) if le == len(data[0])]):
+        print(1)
 
 
-data([[1, 2], 1])
+
+data([[1, 2, 3], [1, 6]])
 # data([5, 9])
