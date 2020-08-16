@@ -1,8 +1,18 @@
 import os
 import sys
 import logging.config
+import yaml
 from functools import wraps
 from copy import deepcopy
+
+
+def __getconf():
+    with open(file='../conflog.yaml', mode='r', encoding='utf-8') as f:
+        result = yaml.load(f.read(), Loader=yaml.FullLoader)
+    return result['log']
+
+
+conf = __getconf()
 
 
 class SelfError(BaseException):
@@ -17,12 +27,12 @@ class SelfError(BaseException):
 
 class LogRecord(object):
 
-    def __init__(self, config):
+    def __init__(self):
         self.logger = logging.getLogger()
-        self.config = config
 
-    def _file_address(self):
-        config = deepcopy(self.config)
+    @classmethod
+    def _file_address(cls):
+        config = deepcopy(conf)
         del config['handlers']['warning']
         del config['handlers']['error']
         config['loggers']['simpleExample']['handlers'].pop(1)
@@ -31,19 +41,21 @@ class LogRecord(object):
         config['root']['handlers'].pop(1)
         logging.config.dictConfig(config)
 
-    def _file_address_warn(self):
+    @classmethod
+    def _file_address_warn(cls):
         log_path1 = (os.path.join(os.getcwd(), 'Logs/DebugLogs/'))
         os.makedirs(log_path1, exist_ok=True)
-        config = deepcopy(self.config)
+        config = deepcopy(conf)
         del config['handlers']['error']
         config['loggers']['simpleExample']['handlers'].pop(2)
         config['root']['handlers'].pop(2)
         logging.config.dictConfig(config)
 
-    def _file_address_error(self):
+    @classmethod
+    def _file_address_error(cls):
         log_path2 = (os.path.join(os.getcwd(), 'Logs/ErrorLogs/'))
         os.makedirs(log_path2, exist_ok=True)
-        config = deepcopy(self.config)
+        config = deepcopy(conf)
         del config['handlers']['warning']
         config['loggers']['simpleExample']['handlers'].pop(1)
         config['root']['handlers'].pop(1)
@@ -51,23 +63,23 @@ class LogRecord(object):
 
     def write_into_log(self, msg, level='debug'):
         if level == 'debug':
-            if len(self.config['handlers']) != 1:
+            if len(conf['handlers']) != 1:
                 self._file_address()
             self.logger.debug(msg)
         elif level == 'info':
-            if 'error' in self.config['handlers']:
+            if 'error' in conf['handlers']:
                 self._file_address_warn()
             self.logger.info(msg)
         elif level == 'warning':
-            if 'error' in self.config['handlers']:
+            if 'error' in conf['handlers']:
                 self._file_address_warn()
             self.logger.warning(msg)
         elif level == 'error':
-            if 'warning' in self.config['handlers']:
+            if 'warning' in conf['handlers']:
                 self._file_address_error()
             self.logger.error(msg)
         elif level == 'critical':
-            if 'warning' in self.config['handlers']:
+            if 'warning' in conf['handlers']:
                 self._file_address_error()
             self.logger.critical(msg)
         else:
