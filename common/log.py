@@ -4,22 +4,6 @@ import logging.config
 import yaml
 from functools import wraps
 from copy import deepcopy
-from run import CONFIG
-
-def __getconf(weight):
-    with open(file='../conflog.yaml', mode='r', encoding='utf-8') as f:
-        result = yaml.load(f.read(), Loader=yaml.FullLoader)
-        if weight == 0:
-            return result['log']
-        elif weight == 1:
-            return result['log']
-        elif weight == 2:
-            return result['log']
-        else:
-            raise TypeError('parameter error')
-
-
-conf = __getconf()
 
 
 class SelfError(BaseException):
@@ -36,10 +20,11 @@ class LogRecord(object):
 
     def __init__(self):
         self.logger = logging.getLogger()
+        with open(file='../conflog.yaml', mode='r', encoding='utf-8') as f:
+            self.conf = yaml.load(f.read(), Loader=yaml.FullLoader)
 
-    @classmethod
-    def _file_address(cls):
-        config = deepcopy(conf)
+    def _file_address(self):
+        config = deepcopy(self.conf)
         del config['handlers']['warning']
         del config['handlers']['error']
         config['loggers']['simpleExample']['handlers'].pop(1)
@@ -48,21 +33,19 @@ class LogRecord(object):
         config['root']['handlers'].pop(1)
         logging.config.dictConfig(config)
 
-    @classmethod
-    def _file_address_warn(cls):
-        log_path1 = (os.path.join(os.getcwd(), 'Logs/DebugLogs/'))
+    def _file_address_warn(self):
+        log_path1 = (os.path.join(os.getcwd(), 'Log/DebugLog/'))
         os.makedirs(log_path1, exist_ok=True)
-        config = deepcopy(conf)
+        config = deepcopy(self.conf)
         del config['handlers']['error']
         config['loggers']['simpleExample']['handlers'].pop(2)
         config['root']['handlers'].pop(2)
         logging.config.dictConfig(config)
 
-    @classmethod
-    def _file_address_error(cls):
-        log_path2 = (os.path.join(os.getcwd(), 'Logs/ErrorLogs/'))
+    def _file_address_error(self):
+        log_path2 = (os.path.join(os.getcwd(), 'Log/ErrorLog/'))
         os.makedirs(log_path2, exist_ok=True)
-        config = deepcopy(conf)
+        config = deepcopy(self.conf)
         del config['handlers']['warning']
         config['loggers']['simpleExample']['handlers'].pop(1)
         config['root']['handlers'].pop(1)
@@ -70,23 +53,23 @@ class LogRecord(object):
 
     def write_into_log(self, msg, level='debug'):
         if level == 'debug':
-            if len(conf['handlers']) != 1:
+            if len(self.conf['handlers']) != 1:
                 self._file_address()
             self.logger.debug(msg)
         elif level == 'info':
-            if 'error' in conf['handlers']:
+            if 'error' in self.conf['handlers']:
                 self._file_address_warn()
             self.logger.info(msg)
         elif level == 'warning':
-            if 'error' in conf['handlers']:
+            if 'error' in self.conf['handlers']:
                 self._file_address_warn()
             self.logger.warning(msg)
         elif level == 'error':
-            if 'warning' in conf['handlers']:
+            if 'warning' in self.conf['handlers']:
                 self._file_address_error()
             self.logger.error(msg)
         elif level == 'critical':
-            if 'warning' in conf['handlers']:
+            if 'warning' in self.conf['handlers']:
                 self._file_address_error()
             self.logger.critical(msg)
         else:
@@ -95,24 +78,11 @@ class LogRecord(object):
 
 class LogManage(LogRecord):
 
-    def __init__(self, config, level=0):
-        super().__init__(config=config)
+    def __init__(self, level=0):
+        super().__init__()
         self._level = level
-        self.logger = logging.getLogger()
-        self.config = config
 
     def __call__(self, func):
-        '''
-        用于记录日志的装饰器，此装饰器可以将函数的返回值记录下来
-            @LogManage(level=0)
-            def log()
-                try:
-                    pass
-                except BaseException as e:
-                    return e
-        :param level: 日志输出的级别
-        :return:
-        '''
         @wraps(func)
         def wrapper(*args, **kwargs):
             if self._level > 3 or self._level < 0:
@@ -122,22 +92,26 @@ class LogManage(LogRecord):
             result = func(*args, **kwargs)
             res = '{} - Flie: {}'.format(result, sys.argv[0])
             if issubclass(type(result), Exception):
-                if 'warning' in self.config['handlers']:
+                if 'warning' in self.conf['handlers']:
                     self._file_address_error()
                 try:
                     raise result
                 except Exception:
                     self.logger.exception('There is an anomaly happening in method：%s - File: %s ' % (func.__name__, sys.argv[0]))
+            elif self._level == 0 and result:
+                if len(self.conf['handlers']) != 1:
+                    self._file_address()
+                self.logger.debug(res)
             elif self._level == 1 and result:
-                if len(self.config['handlers']) != 1:
+                if len(self.conf['handlers']) != 1:
                     self._file_address()
                 self.logger.debug(res)
             elif self._level == 2 and result:
-                if 'error' in self.config['handlers']:
+                if 'error' in self.conf['handlers']:
                     self._file_address_warn()
                 self.logger.info(res)
             elif self._level == 3 and result:
-                if 'error' in self.config['handlers']:
+                if 'error' in self.conf['handlers']:
                     self._file_address_warn()
                 self.logger.warning(res)
             return result

@@ -10,14 +10,14 @@ handlers:
     stream: ext://sys.stdout
   warning:
     class: logging.FileHandler
-    filename: ./Logs/DebugLogs/log.log
+    filename: ./Log/DebugLog/log.log
     mode: a
     level: INFO
     formatter: simple
     encoding: utf-8
   error:
     class: logging.handlers.TimedRotatingFileHandler
-    filename: ./Logs/ErrorLogs/error.log   #这个路径根据自己的日志存放路径填写
+    filename: ./Log/ErrorLog/error.log   #这个路径根据自己的日志存放路径填写
     level: ERROR
     formatter: simple
     interval: 1
