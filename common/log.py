@@ -4,12 +4,19 @@ import logging.config
 import yaml
 from functools import wraps
 from copy import deepcopy
+from run import CONFIG
 
-
-def __getconf():
+def __getconf(weight):
     with open(file='../conflog.yaml', mode='r', encoding='utf-8') as f:
         result = yaml.load(f.read(), Loader=yaml.FullLoader)
-    return result['log']
+        if weight == 0:
+            return result['log']
+        elif weight == 1:
+            return result['log']
+        elif weight == 2:
+            return result['log']
+        else:
+            raise TypeError('parameter error')
 
 
 conf = __getconf()
