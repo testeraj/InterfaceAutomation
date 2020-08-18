@@ -28,14 +28,14 @@
 from common.log import LogRecord, LogManage
 
 
-@LogManage()
+@LogManage(1)
 def er():
-    # res = 'this is log'
-    try:
-        a = 1/0
-    except Exception as e:
-        return e
-    # return res
+    res = 'this is log'
+    # try:
+    #     a = 1/0
+    # except Exception as e:
+    #     return e
+    return res
 
 er()
 

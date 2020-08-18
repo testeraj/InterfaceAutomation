@@ -11,8 +11,9 @@ class LogRecord(object):
 
     def __init__(self):
         self.logger = logging.getLogger()
-        with open(file='F:/InterfaceAutomation/conflog.yaml', mode='r', encoding='utf-8') as f:
-            self.conf = yaml.load(f.read(), Loader=yaml.FullLoader)
+        with open(file='F:/InterfaceAutomation/config.yaml', mode='r', encoding='utf-8') as f:
+            config = yaml.load(f.read(), Loader=yaml.FullLoader)
+        self.conf = config['Log']
         os.makedirs(os.path.join(os.getcwd(), 'Logs/'), exist_ok=True)
 
     def _clear(self):
@@ -61,7 +62,7 @@ class LogManage(LogRecord):
                     raise result
                 except Exception:
                     self.logger.exception('There is an anomaly happening in method：%s - File: %s ' % (func.__name__, sys.argv[0]))
-            elif self._level == (0 or 1) and result:
+            elif (self._level == 0 or self._level == 1) and result:
                 self.logger.debug(res)
             elif self._level == 2 and result:
                 self.logger.info(res)
