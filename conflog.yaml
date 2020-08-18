@@ -3,32 +3,18 @@ formatters:
   simple:
     format: '%(asctime)s - %(levelname)s: %(message)s'
 handlers:
-  console:
-    class: logging.StreamHandler
+  attribute:
+    class: logging.FileHandler
+    filename: ./Logs/log.log
+    mode: a
     level: DEBUG
     formatter: simple
-    stream: ext://sys.stdout
-  warning:
-    class: logging.FileHandler
-    filename: ./Log/DebugLog/log.log
-    mode: a
-    level: INFO
-    formatter: simple
     encoding: utf-8
-  error:
-    class: logging.handlers.TimedRotatingFileHandler
-    filename: ./Log/ErrorLog/error.log   #这个路径根据自己的日志存放路径填写
-    level: ERROR
-    formatter: simple
-    interval: 1
-    backupCount: 0
-    encoding: utf8
-    when: M  #这里是按分钟生成
 loggers:
   simpleExample:
     level: NOTSET
-    handlers: [console, warning, error]
+    handlers: [attribute]
     propagate: yes
 root:
   level: NOTSET
-  handlers: [console, warning, error]
+  handlers: [attribute]

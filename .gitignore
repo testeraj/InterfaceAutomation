@@ -81,8 +81,7 @@ fabric.properties
 *.log
 out
 gen
-*/Logs/DebugLogs
-*/Logs/ErrorLogs
+*/Logs/
 */__pycache__
 *.pytest_cache
 *allure-report

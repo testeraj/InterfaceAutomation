@@ -34,5 +34,6 @@ from common.log import LogRecord, LogManage
 #     return res
 #
 # er()
-
-LogRecord().write_into_log('this is a test', 'error')
+#
+# LogRecord().write_into_log('this is a test', 0)
+# LogRecord().write_into_log('this is a test', 4
