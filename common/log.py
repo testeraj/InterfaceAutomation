@@ -15,7 +15,7 @@ class LogRecord(object):
             self.conf = yaml.load(f.read(), Loader=yaml.FullLoader)
         os.makedirs(os.path.join(os.getcwd(), 'Logs/'), exist_ok=True)
 
-    def __clear(self):
+    def _clear(self):
         filename = self.conf['handlers']['attribute']['filename']
         historyfile = os.path.join(os.getcwd(), 'Logs/history')
         if os.path.exists(filename) and round(os.path.getsize(filename)/1024/1024) >= 100:
@@ -26,7 +26,7 @@ class LogRecord(object):
         logging.config.dictConfig(self.conf)
 
     def write_into_log(self, msg, level=0):
-        self.__clear()
+        self._clear()
         if level == 0:
             self.logger.debug(msg)
         elif level == 1:
@@ -51,26 +51,21 @@ class LogManage(LogRecord):
         @wraps(func)
         def wrapper(*args, **kwargs):
             if self._level > 3 or self._level < 0:
-                self._file_address_warn()
                 self.logger.warning('level参数错误：%s' % self._level)
                 raise TypeError('Parameter Error')
+            self._clear()
             result = func(*args, **kwargs)
             res = '{} - Flie: {}'.format(result, sys.argv[0])
             if issubclass(type(result), Exception):
-                if 'warning' in self.conf['handlers']:
-                    self._file_address_error()
                 try:
                     raise result
                 except Exception:
                     self.logger.exception('There is an anomaly happening in method：%s - File: %s ' % (func.__name__, sys.argv[0]))
             elif self._level == (0 or 1) and result:
-                self._file_address()
                 self.logger.debug(res)
             elif self._level == 2 and result:
-                self._file_address_warn()
                 self.logger.info(res)
             elif self._level == 3 and result:
-                self._file_address_warn()
                 self.logger.warning(res)
             return result
         return wrapper

@@ -28,12 +28,16 @@
 from common.log import LogRecord, LogManage
 
 
-# @LogManage()
-# def er():
-#     res = 'this is log'
-#     return res
-#
-# er()
-#
+@LogManage()
+def er():
+    # res = 'this is log'
+    try:
+        a = 1/0
+    except Exception as e:
+        return e
+    # return res
+
+er()
+
 # LogRecord().write_into_log('this is a test', 0)
-# LogRecord().write_into_log('this is a test', 4
+# LogRecord().write_into_log('this is a test', 4)
