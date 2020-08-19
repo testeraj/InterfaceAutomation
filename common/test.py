@@ -24,9 +24,3 @@
 #
 # if __name__ == '__main__':
 #     main()
-
-from common.log import LogRecord, LogManage
-from common.mysqldb import Mysql
-
-
-Mysql().execute_sql('select data2 from test_carport_data', 'select', fetch=1)
