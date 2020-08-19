@@ -1,7 +1,7 @@
 Server:
   http://192.168.0.27:1004/into/carEnterParkLotJY
 MySQL:
-  database: {'host': '127.0.0.1', 'port': 3306, 'user': 'root', 'password': '123456', 'dbname': 'milor', 'charset': 'utf-8'}
+  database: {'host': '127.0.0.1', 'port': 3306, 'user': 'root', 'password': '123456', 'dbname': 'pytest', 'charset': 'utf8'}
   sql: {'query': {}, 'update': {}}
 File:
   path: test.xlsx

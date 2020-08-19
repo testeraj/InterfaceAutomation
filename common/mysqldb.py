@@ -1,17 +1,19 @@
 import pymysql
 from common.log import LogRecord
+from common.readconfig import MYSQL_CONFIG
 
 
 class Mysql(object):
 
-    def __init__(self, config):
+    def __init__(self):
+        self.config = MYSQL_CONFIG['database']
         self._mysqldb = pymysql.connect(
-            host=config['host'],
-            user=config['user'],
-            password=config['password'],
-            database=config['database'],
-            port=config['port'],
-            charset=config['charset'],
+            host=self.config['host'],
+            user=self.config['user'],
+            password=self.config['password'],
+            database=self.config['dbname'],
+            port=self.config['port'],
+            charset=self.config['charset'],
         )
         self._mycursor = self._mysqldb.cursor()
 
@@ -23,6 +25,7 @@ class Mysql(object):
                 LogRecord().write_into_log(self._mycursor.mogrify(sql))
                 self._mysqldb.commit()  # 提交修改
             elif option == "select":
+                self._mycursor.execute(sql)
                 if fetch == 0:
                     result = self._mycursor.fetchone()
                     LogRecord().write_into_log("{} ---> {}".format(result, self._mycursor.mogrify(sql)))
@@ -39,7 +42,7 @@ class Mysql(object):
                 raise TypeError('Parameter Error')
         except BaseException as e:
             self._mysqldb.rollback()    # 发生错误时回滚
-            LogRecord().write_into_log(e, level='error')
+            LogRecord().write_into_log(e, level=3)
 
     def close(self):
         self._mycursor.close()   # 关闭游标

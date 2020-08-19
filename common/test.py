@@ -29,16 +29,4 @@ from common.log import LogRecord, LogManage
 from common.mysqldb import Mysql
 
 
-@LogManage(1)
-def er():
-    res = 'this is log'
-    # try:
-    #     a = 1/0
-    # except Exception as e:
-    #     return e
-    return res
-
-er()
-
-# LogRecord().write_into_log('this is a test', 0)
-# LogRecord().write_into_log('this is a test', 4)
+Mysql().execute_sql('select data2 from test_carport_data', 'select', fetch=1)

@@ -1,19 +1,17 @@
 import os
 import sys
 import logging.config
-import yaml
 import shutil
 from functools import wraps
 from datetime import datetime
+from common.readconfig import LOG_CONFIG
 
 
 class LogRecord(object):
 
     def __init__(self):
         self.logger = logging.getLogger()
-        with open(file='F:/InterfaceAutomation/config.yaml', mode='r', encoding='utf-8') as f:
-            config = yaml.load(f.read(), Loader=yaml.FullLoader)
-        self.conf = config['Log']
+        self.conf = LOG_CONFIG
         os.makedirs(os.path.join(os.getcwd(), 'Logs/'), exist_ok=True)
 
     def _clear(self):
