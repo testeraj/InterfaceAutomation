@@ -44,14 +44,14 @@ class LogRecord(object):
 
 class LogManage(LogRecord):
 
-    def __init__(self, level=0):
+    def __init__(self, level=1):
         super().__init__()
         self._level = level
 
     def __call__(self, func):
         @wraps(func)
         def wrapper(*args, **kwargs):
-            if self._level > 3 or self._level < 0:
+            if self._level > 3 or self._level < 1:
                 self.logger.warning('level参数错误：%s' % self._level)
                 raise TypeError('Parameter Error')
             self._clear()
@@ -62,7 +62,7 @@ class LogManage(LogRecord):
                     raise result
                 except Exception:
                     self.logger.exception('There is an anomaly happening in method：%s - File: %s ' % (func.__name__, sys.argv[0]))
-            elif (self._level == 0 or self._level == 1) and result:
+            elif self._level == 1 and result:
                 self.logger.debug(res)
             elif self._level == 2 and result:
                 self.logger.info(res)

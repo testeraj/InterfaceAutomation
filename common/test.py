@@ -26,6 +26,7 @@
 #     main()
 
 from common.log import LogRecord, LogManage
+from common.mysqldb import Mysql
 
 
 @LogManage(1)

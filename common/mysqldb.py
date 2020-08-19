@@ -15,25 +15,28 @@ class Mysql(object):
         )
         self._mycursor = self._mysqldb.cursor()
 
-    def select(self, sql, level=0):
+    def execute_sql(self, sql, option, fetch=0):
         try:
             self._mysqldb.ping(reconnect=True)
-            if 'select' in sql:
+            if option == 'update' or option == 'insert' or option == 'delete':
                 self._mycursor.execute(sql)
-                if level == 0:
+                LogRecord().write_into_log(self._mycursor.mogrify(sql))
+                self._mysqldb.commit()  # 提交修改
+            elif option == "select":
+                if fetch == 0:
                     result = self._mycursor.fetchone()
                     LogRecord().write_into_log("{} ---> {}".format(result, self._mycursor.mogrify(sql)))
                     self._mysqldb.commit()
                     return result
-                elif level == 1:
+                elif fetch == 1:
                     result = self._mycursor.fetchall()
                     LogRecord().write_into_log("{} ---> {}".format(result, self._mycursor.mogrify(sql)))
-                    self._mysqldb.commit()  # 提交修改
+                    self._mysqldb.commit()
                     return result
-            elif 'update' in sql:
-                self._mycursor.execute(sql)
-                LogRecord().write_into_log(self._mycursor.mogrify(sql))
-                self._mysqldb.commit()  # 提交修改
+                else:
+                    raise TypeError('Parameter Error')
+            else:
+                raise TypeError('Parameter Error')
         except BaseException as e:
             self._mysqldb.rollback()    # 发生错误时回滚
             LogRecord().write_into_log(e, level='error')
