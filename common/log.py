@@ -23,7 +23,7 @@ class LogRecord(object):
             os.makedirs(historyfile, exist_ok=True)
             shutil.move(filename, historyfile)
             os.rename(historyfile+'/log.log', historyfile+'/{}.log'.format(
-                datetime.now().strftime('%Y-%m-%d^%H-%M-%S')))
+                datetime.now().strftime('%Y-%m-%d')))
         logging.config.dictConfig(self.conf)
 
     def write_into_log(self, msg, level=0):
