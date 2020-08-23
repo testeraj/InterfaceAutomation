@@ -4,7 +4,7 @@ import xlwings as xw
 
 class Execl:
 
-    def __init__(self, file=None, sheet_name='sheet1', visible=False):
+    def __init__(self, file, sheet_name='sheet1', visible=False):
         """
         :param file: 文件路径，如果文件不存在，则新建文件
         :param sheet_name: 工作页名称
@@ -61,6 +61,6 @@ class Execl:
 
 
 if __name__ == '__main__':
-    execl = Execl('test.xlsx')
+    execl = Execl('text.xlsx')
     execl.writeexecl([[1, 3, 2], [1, 3, 6]])
     execl.close()
