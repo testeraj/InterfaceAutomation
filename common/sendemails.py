@@ -6,20 +6,13 @@ from email.mime.multipart import MIMEMultipart
 from email.header import Header
 from email.mime.application import MIMEApplication
 from common.log import LogManage
+from common.readconfig import EMAIL_CONFIG
 
 
 class Email(object):
 
     def __init__(self):
-
-        self.mail_config = {
-            'host' : 'smtp.163.com',    #smtp服务器
-            'port' : 465,    #smtp端口
-            'passwd' : 'YZZNFHGRPVEVGENC',  #邮箱密码
-            'sender' : 'x1124292446@163.com',   #发件人邮箱
-            'receivers' : 'x1124292446@163.com',    #收件人邮箱
-            'content' : '来自testeraj的测试报告，请查收！ps：详情见附件',   #邮件内容
-        }
+        self.mail_config = EMAIL_CONFIG
         self.attachment = MIMEMultipart()
 
     @staticmethod
@@ -34,7 +27,7 @@ class Email(object):
 
     @LogManage()
     def send_mail(self):
-        Email().zip_file()
+        self.zip_file()
         text = MIMEText(self.mail_config['content'], 'plain', 'utf-8')
         try:
             atta = MIMEApplication(open('./reports.zip', 'rb').read())

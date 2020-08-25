@@ -5,6 +5,13 @@ MySQL:
   sql: {'query': {}, 'update': {}}
 File:
   path: test.xlsx
+Email:
+  host: 'smtp.163.com'
+  port: 465
+  passwd: 'YZZNFHGRPVEVGENC'
+  sender: 'x1124292446@163.com'
+  receivers: 'x1124292446@163.com'
+  content: '来自testeraj的测试报告，请查收！ps：详情见附件'
 Log:
   version: 1
   formatters:
