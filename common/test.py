@@ -24,3 +24,13 @@
 #
 # if __name__ == '__main__':
 #     main()
+from common.encryption import Encryption
+import pytest
+
+
+def options(**kwargs):
+    print(kwargs['json'])
+    print(type(kwargs['json']))
+
+
+options(json='{"name": "AJ", "sex": "男"}', data='159',params=None)
