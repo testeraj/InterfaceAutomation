@@ -2,22 +2,32 @@ import requests
 from common.encryption import Encryption
 
 
-def start(options=None, **kwargs):
-    if kwargs.get('method') is not None or kwargs.get('url') is not None:
-        kwargs.setdefault('json')
-        kwargs.setdefault('data')
-        kwargs.setdefault('params')
-        kwargs.setdefault('file')
-        kwargs.setdefault('headers')
-        for k, v in kwargs.items():
-            if v is not None and v != '':
-                if v[0] == '{' and v[-1] == '}':
-                    kwargs[k] = eval(v)
-                else:
-                    kwargs[k] = v
-        print(kwargs)
+class Request:
 
-    #     if len(list(filter(lambda x: x is not None and x != '', [kwargs['json'], kwargs['data'], kwargs['params']]))) == 1:
+    @staticmethod
+    def dispose(**kwargs):
+        if kwargs.get('method') is not None and kwargs.get('url') is not None:
+            kwargs.setdefault('json')
+            kwargs.setdefault('data')
+            kwargs.setdefault('params')
+            kwargs.setdefault('file')
+            kwargs.setdefault('headers')
+            if len(list(filter(lambda x: x is not None and x != '', [kwargs['json'], kwargs['data'], kwargs['params']]))) == 1:
+                for k, v in kwargs.items():
+                    if v is not None and v != '':
+                        if v[0] == '{' and v[-1] == '}':
+                            kwargs[k] = eval(v)
+                        else:
+                            kwargs[k] = v
+                return kwargs
+            else:
+                raise ValueError('There can only be one value')
+        else:
+            raise KeyError('Missing the necessary parameters')
+
+    @staticmethod
+    def initiate(url=None, options=None):
+        value = Request.dispose()
     #         if options == 'md5' or options == 'base64':
     #             res = eval(list(filter(lambda x: x is not None and x != '', [kwargs['json'], kwargs['data']]))[0])
     #             for k, v in res.items():

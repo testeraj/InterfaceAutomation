@@ -2,13 +2,13 @@ import os
 import xlwings as xw
 
 
-class Execl:
+class Excel:
 
     def __init__(self, file, sheet_name='sheet1', visible=False):
         """
         :param file: 文件路径，如果文件不存在，则新建文件
         :param sheet_name: 工作页名称
-        :param visible: bool, 该值决定是否打开应用程序(execl) 默认False
+        :param visible: bool, 该值决定是否打开应用程序(Excel) 默认False
         """
         self.__app = xw.App(visible=visible, add_book=False)
         self.__app.display_alerts = False
@@ -22,15 +22,15 @@ class Execl:
         self.column = info.last_cell.column  # 列数
         self.row = info.last_cell.row  # 行数
 
-    def readexecl(self, start='A1'):
+    def readExcel(self, start='A1'):
         data = self.sheet.range(start).expand().value
         return data
 
-    def writeexecl(self, data, isrow=True, start='A1'):
+    def writeExcel(self, data, isrow=True, start='A1'):
         '''
         :param data: list, 参数必须为列表; 可以传嵌套列表  [args, args, args] or [[args, args], [args, args], [args, args]]
         :param isrow: bool, 区分行和列, 默认为True(行)
-        :param start: str, execl中的单元格
+        :param start: str, Excel中的单元格
         '''
         if isinstance(data, list):
             if all(isinstance(row, (str, int)) for row in data):
@@ -61,6 +61,6 @@ class Execl:
 
 
 if __name__ == '__main__':
-    execl = Execl('text.xlsx')
-    execl.writeexecl([[1, 3, 2], [1, 3, 6]])
-    execl.close()
+    Excel = Excel('text.xlsx')
+    Excel.writeExcel([[1, 3, 2], [1, 3, 6]])
+    Excel.close()

@@ -29,8 +29,11 @@ import pytest
 
 
 def options(**kwargs):
-    print(kwargs['json'])
-    print(type(kwargs['json']))
+    # print(kwargs['json'])
+    # print(type(kwargs['json']))
+    if kwargs.get('method') is not None and kwargs.get('url') is not None:
+        print(1)
+    print(2)
 
 
-options(json='{"name": "AJ", "sex": "男"}', data='159',params=None)
+options(url ='{"name": "AJ", "sex": "男"}', data='159',params=None)
