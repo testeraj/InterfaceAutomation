@@ -1,15 +1,14 @@
 import os
 import yaml
 import pytest
+from common.readconfig import PATH
+from common.excel import Excel
+
+data = Excel(PATH).readExcel('A2')
 
 
-def __getconf():
-    with open(file='config.yaml', mode='r', encoding='utf-8') as f:
-        result = yaml.load(f.read(), Loader=yaml.FullLoader)
-    return result
 
 
-CONFIG = __getconf()
 
 
 if __name__ == '__main__':
