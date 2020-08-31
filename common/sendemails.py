@@ -32,8 +32,8 @@ class Email(object):
         else:
             raise FileNotFoundError('file or path does not exist')
 
-    def send_mail(self):
-        path = self.compress('test.xlsx')
+    def send_mail(self, source):
+        path = self.compress(source)
         text = MIMEText(self.mail_config['content'], 'plain', 'utf-8')
         atta = MIMEApplication(open(path, 'rb').read())
         atta.add_header('Content-Disposition', 'attachment', filename=path.split('/')[-1])
@@ -45,8 +45,3 @@ class Email(object):
         mail_server.login(self.mail_config['sender'], self.mail_config['passwd'])
         mail_server.sendmail(self.mail_config['sender'], self.mail_config['receivers'], self.attachment.as_string())
         mail_server.quit()
-
-
-if __name__ == '__main__':
-    email = Email()
-    email.send_mail()
