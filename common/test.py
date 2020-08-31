@@ -25,15 +25,22 @@
 # if __name__ == '__main__':
 #     main()
 from common.encryption import Encryption
-import pytest
 
 
-def options(**kwargs):
-    # print(kwargs['json'])
-    # print(type(kwargs['json']))
-    if kwargs.get('method') is not None and kwargs.get('url') is not None:
-        print(1)
-    print(2)
+def function(func):
+    def wrapper(**kwargs):
+        print('this is a wrapper')
+        result = func(**kwargs)
+        return result
+    return wrapper
 
 
-options(url ='{"name": "AJ", "sex": "男"}', data='159',params=None)
+class tester:
+
+    @staticmethod
+    @function
+    def options(**kwargs):
+        res = Encryption.md5(kwargs['json'])
+        print(res)
+
+getattr(tester, 'options')(json='value')

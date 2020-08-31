@@ -1,15 +1,8 @@
 import os
-import yaml
 import pytest
-from common.readconfig import PATH
-from common.excel import Excel
-
-data = Excel(PATH).readExcel('A2')
 
 
-
-
-
-
-if __name__ == '__main__':
-    pytest.main(['-v', '-s', 'testcases'])
+pytest.main()
+os.system('allure generate allure-result -o allure-report --clean')
+    # os.system('allure serve ./allure-xml')
+    # os.system('allure generate ./allure-xml -o ./allure-result')
