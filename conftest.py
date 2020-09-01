@@ -14,11 +14,17 @@ def control():
         mydb = Mysql(MYSQL_CONFIG)
         request = Request
         excel = Excel(PATH)
-        res = excel.readExcel()
-        res.pop(0)
-    yield res, mydb, request
+        data = excel.readExcel()
+        data.pop(0)
+    yield data, mydb, request
     excel.close()
     mydb.close()
     email.send_mail('F:/InterfaceAutomation/report.html')
 
+
+@pytest.fixture(scope='function')
+def login(control):
+    data, mydb, request = control
+    response = request.initiate(method=data[0][2], url=data[0][3], json=data[0][4])
+    return response.json()['token']
 

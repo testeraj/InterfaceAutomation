@@ -420,7 +420,7 @@ function filter_table(elem) {
 }
 </script>
     <h1>report.html</h1>
-    <p>Report generated on 01-Sep-2020 at 14:46:04 by <a href="https://pypi.python.org/pypi/pytest-html">pytest-html</a> v2.1.1</p>
+    <p>Report generated on 01-Sep-2020 at 19:02:43 by <a href="https://pypi.python.org/pypi/pytest-html">pytest-html</a> v2.1.1</p>
     <h2>Environment</h2>
     <table id="environment">
       <tr>
@@ -439,8 +439,8 @@ function filter_table(elem) {
         <td>Python</td>
         <td>3.6.4</td></tr></table>
     <h2>Summary</h2>
-    <p>0 tests ran in 0.50 seconds. </p>
-    <p class="filter" hidden="true">(Un)check the boxes to filter the results.</p><input checked="true" class="filter" data-test-result="passed" disabled="true" hidden="true" name="filter_checkbox" onChange="filter_table(this)" type="checkbox"/><span class="passed">0 passed</span>, <input checked="true" class="filter" data-test-result="skipped" disabled="true" hidden="true" name="filter_checkbox" onChange="filter_table(this)" type="checkbox"/><span class="skipped">0 skipped</span>, <input checked="true" class="filter" data-test-result="failed" disabled="true" hidden="true" name="filter_checkbox" onChange="filter_table(this)" type="checkbox"/><span class="failed">0 failed</span>, <input checked="true" class="filter" data-test-result="error" hidden="true" name="filter_checkbox" onChange="filter_table(this)" type="checkbox"/><span class="error">1 errors</span>, <input checked="true" class="filter" data-test-result="xfailed" disabled="true" hidden="true" name="filter_checkbox" onChange="filter_table(this)" type="checkbox"/><span class="xfailed">0 expected failures</span>, <input checked="true" class="filter" data-test-result="xpassed" disabled="true" hidden="true" name="filter_checkbox" onChange="filter_table(this)" type="checkbox"/><span class="xpassed">0 unexpected passes</span>
+    <p>1 tests ran in 3.16 seconds. </p>
+    <p class="filter" hidden="true">(Un)check the boxes to filter the results.</p><input checked="true" class="filter" data-test-result="passed" hidden="true" name="filter_checkbox" onChange="filter_table(this)" type="checkbox"/><span class="passed">1 passed</span>, <input checked="true" class="filter" data-test-result="skipped" disabled="true" hidden="true" name="filter_checkbox" onChange="filter_table(this)" type="checkbox"/><span class="skipped">0 skipped</span>, <input checked="true" class="filter" data-test-result="failed" disabled="true" hidden="true" name="filter_checkbox" onChange="filter_table(this)" type="checkbox"/><span class="failed">0 failed</span>, <input checked="true" class="filter" data-test-result="error" disabled="true" hidden="true" name="filter_checkbox" onChange="filter_table(this)" type="checkbox"/><span class="error">0 errors</span>, <input checked="true" class="filter" data-test-result="xfailed" disabled="true" hidden="true" name="filter_checkbox" onChange="filter_table(this)" type="checkbox"/><span class="xfailed">0 expected failures</span>, <input checked="true" class="filter" data-test-result="xpassed" disabled="true" hidden="true" name="filter_checkbox" onChange="filter_table(this)" type="checkbox"/><span class="xpassed">0 unexpected passes</span>
     <h2>Results</h2>
     <table id="results-table">
       <thead id="results-table-head">
@@ -451,12 +451,12 @@ function filter_table(elem) {
           <th>Links</th></tr>
         <tr hidden="true" id="not-found-message">
           <th colspan="4">No results found. Try to check the filters</th></tr></thead>
-      <tbody class="error results-table-row">
+      <tbody class="passed results-table-row">
         <tr>
-          <td class="col-result">Error</td>
-          <td class="col-name">testcases/test_base.py::TestBase::collect</td>
-          <td class="col-duration">0.00</td>
+          <td class="col-result">Passed</td>
+          <td class="col-name">testcases/test_base.py::TestBase::test_login</td>
+          <td class="col-duration">0.07</td>
           <td class="col-links"></td></tr>
         <tr>
           <td class="extra" colspan="4">
-            <div class="log">F:\python_env\test\lib\site-packages\pluggy\hooks.py:286: in __call__<br/>    return self._hookexec(self, self.get_hookimpls(), kwargs)<br/>F:\python_env\test\lib\site-packages\pluggy\manager.py:93: in _hookexec<br/>    return self._inner_hookexec(hook, methods, kwargs)<br/>F:\python_env\test\lib\site-packages\pluggy\manager.py:87: in &lt;lambda&gt;<br/>    firstresult=hook.spec.opts.get(&quot;firstresult&quot;) if hook.spec else False,<br/>F:\python_env\test\lib\site-packages\_pytest\python.py:246: in pytest_pycollect_makeitem<br/>    res = list(collector._genfunctions(name, obj))<br/>F:\python_env\test\lib\site-packages\_pytest\python.py:442: in _genfunctions<br/>    definition = FunctionDefinition.from_parent(self, name=name, callobj=funcobj)<br/>F:\python_env\test\lib\site-packages\_pytest\python.py:1539: in from_parent<br/>    return super().from_parent(parent=parent, **kw)<br/>F:\python_env\test\lib\site-packages\_pytest\nodes.py:195: in from_parent<br/>    return cls._create(parent=parent, **kw)<br/>F:\python_env\test\lib\site-packages\_pytest\nodes.py:99: in _create<br/>    return super().__call__(*k, **kw)<br/>F:\python_env\test\lib\site-packages\_pytest\python.py:1528: in __init__<br/>    self, self.obj, self.cls, funcargs=True<br/>F:\python_env\test\lib\site-packages\_pytest\fixtures.py:1498: in getfixtureinfo<br/>    initialnames, node, ignore_args=self._get_direct_parametrize_args(node)<br/>F:\python_env\test\lib\site-packages\_pytest\fixtures.py:1478: in _get_direct_parametrize_args<br/>    *marker.args, **marker.kwargs<br/><span class="error">E   TypeError: _parse_parametrize_args() missing 1 required positional argument: &#x27;argvalues&#x27;</span><br/></div></td></tr></tbody></table></body></html>
+            <div class="empty log">No log output captured.</div></td></tr></tbody></table></body></html>
