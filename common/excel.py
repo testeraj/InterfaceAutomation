@@ -58,9 +58,3 @@ class Excel:
         self.workbook.save()
         self.workbook.close()
         self.__app.quit()
-
-
-if __name__ == '__main__':
-    Excel = Excel('text.xlsx')
-    Excel.writeExcel([[1, 3, 2], [1, 3, 6]])
-    Excel.close()

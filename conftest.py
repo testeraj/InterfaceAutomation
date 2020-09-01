@@ -1,11 +1,13 @@
 import pytest
+from filelock import FileLock
 from common.excel import Excel
 from common.readconfig import PATH
 
 
 @pytest.fixture(scope='session', autouse=True)
 def control():
-    excel = Excel(PATH)
+    with FileLock("session.lock"):
+        excel = Excel(PATH)
     yield excel
     excel.close()
 
