@@ -9,7 +9,7 @@ test_data = Excel(PATH).readExcel('A2')
 class TestBase:
 
     @pytest.mark.parametrize("data", test_data)
-    def test_login(self, setup, data):
+    def test_login(self, data):
         response = Request.initiate(method=data[2], url=data[3], json=data[4])
         a = response.text
         pytest.assume(data[-2] == a['msg'])
