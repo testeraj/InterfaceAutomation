@@ -24,23 +24,19 @@
 #
 # if __name__ == '__main__':
 #     main()
-from common.encryption import Encryption
+from common.excel import Excel
+import pytest
 
+@pytest.fixture(scope='function')
+def read():
+    excel = Excel('F:/InterfaceAutomation/casedata.xlsx')
+    data = excel.readExcel()
+    data.pop(0)
+    print(data)
+    yield data
+    excel.close()
 
-def function(func):
-    def wrapper(**kwargs):
-        print('this is a wrapper')
-        result = func(**kwargs)
-        return result
-    return wrapper
+def login(read):
+    print(read)
 
-
-class tester:
-
-    @staticmethod
-    @function
-    def options(**kwargs):
-        res = Encryption.md5(kwargs['json'])
-        print(res)
-
-getattr(tester, 'options')(json='value')
+login()
