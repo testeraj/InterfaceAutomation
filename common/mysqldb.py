@@ -1,12 +1,11 @@
 import pymysql
 from common.log import LogRecord
-from common.readconfig import MYSQL_CONFIG
 
 
 class Mysql(object):
 
-    def __init__(self):
-        self.config = MYSQL_CONFIG['database']
+    def __init__(self, config):
+        self.config = config['database']
         self._mysqldb = pymysql.connect(
             host=self.config['host'],
             user=self.config['user'],

@@ -19,7 +19,3 @@ class Encryption(object):
             return str(base64.b64encode(data.encode('utf-8')), 'utf-8')
         else:
             raise TypeError('Parameter type error')
-
-
-if __name__ == '__main__':
-    start = Encryption()

@@ -5,13 +5,12 @@ from email.mime.multipart import MIMEMultipart
 from email.header import Header
 from email.mime.text import MIMEText
 from email.mime.application import MIMEApplication
-from common.readconfig import EMAIL_CONFIG
 
 
 class Email(object):
 
-    def __init__(self):
-        self.mail_config = EMAIL_CONFIG
+    def __init__(self, config):
+        self.mail_config = config
         self.attachment = MIMEMultipart()
         self.attachment['From'] = Header(self.mail_config['sender'])     # 发送邮箱地址
         self.attachment['To'] = Header(self.mail_config['receivers'])      # 收件箱地址
