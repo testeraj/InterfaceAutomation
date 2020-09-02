@@ -1,7 +1,7 @@
 Server:
   http://192.168.0.27:1004/into/carEnterParkLotJY
 MySQL:
-  database: {'host': '127.0.0.1', 'port': 3306, 'user': 'root', 'password': '123456', 'dbname': 'pytest', 'charset': 'utf8'}
+  database: {'host': '192.168.1.127', 'port': 3306, 'user': 'root', 'password': '123456', 'dbname': 'park_ell', 'charset': 'utf8'}
   sql: {'query': {}, 'update': {}}
 File:
   path: F:/InterfaceAutomation/casedata.xlsx
