@@ -24,19 +24,4 @@
 #
 # if __name__ == '__main__':
 #     main()
-from common.excel import Excel
-import pytest
 
-@pytest.fixture(scope='function')
-def read():
-    excel = Excel('F:/InterfaceAutomation/casedata.xlsx')
-    data = excel.readExcel()
-    data.pop(0)
-    print(data)
-    yield data
-    excel.close()
-
-def login(read):
-    print(read)
-
-login()
