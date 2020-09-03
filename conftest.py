@@ -17,7 +17,7 @@ def control():
     mydb.close()
 
 
-@pytest.fixture(scope='function')
+@pytest.fixture(scope='module')
 def login(control):
     logger, mydb, request = control
     excel = Excel(PATH)
@@ -31,6 +31,6 @@ def login(control):
         return token
     except Exception as e:
         logger.write_into_log(e, 3)
-    # finally:
-    #     excel.close()
+    finally:
+        excel.close()
 

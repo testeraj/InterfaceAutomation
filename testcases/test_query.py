@@ -13,4 +13,4 @@ class TestQuery:
         print(login)
         logger, mydb, request = control
         response = request.initiate(method=args[3], url=IP+args[4], data=args[5], headers=args[-3])
-        pytest.assume(args[-2] == response.json()['msg'])
+        pytest.assume(args[-2] == response.json()['msg'] or response.json()['code'])
