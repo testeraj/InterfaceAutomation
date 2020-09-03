@@ -1,5 +1,20 @@
 import os
+import xlrd
 import xlwings as xw
+
+
+def readonly(file):
+    if os.path.exists(file):
+        workbook = xlrd.open_workbook(file)  # 打开execl表
+        sheet = workbook.sheets()[0]  # 获取工作页w
+        new_data = []
+        for i in range(1, sheet.nrows):
+            value = sheet.row_values(i)
+            new_value = [None if v == '' else v for v in value]
+            new_data.append(new_value)
+        return new_data
+    else:
+        raise FileNotFoundError('file or path does not exist')
 
 
 class Excel:
