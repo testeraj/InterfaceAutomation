@@ -16,14 +16,14 @@ class Mysql(object):
         )
         self._mycursor = self._mysqldb.cursor()
 
-    def execute_sql(self, sql, option, fetch=0):
+    def execute_sql(self, sql, fetch=0):
         try:
             self._mysqldb.ping(reconnect=True)
-            if option == 'update' or option == 'insert' or option == 'delete':
+            if sql[:6] in ('update', 'insert', 'delete'):
                 self._mycursor.execute(sql)
                 LogRecord().write_into_log(self._mycursor.mogrify(sql))
                 self._mysqldb.commit()  # 提交修改
-            elif option == "select":
+            elif sql[:6] == "select":
                 self._mycursor.execute(sql)
                 if fetch == 0:
                     result = self._mycursor.fetchone()
