@@ -1,6 +1,6 @@
 Server: http://api.cqqcjc.com #http://192.168.1.127
 MySQL:
-  database: {'host': '127.0.0.1', 'port': 3306, 'user': 'root', 'password': 'xjj=62', 'dbname': 'mysql', 'charset': 'utf8'}
+  database: {'host': '192.168.1.127', 'port': 3306, 'user': 'root', 'password': '123456', 'dbname': 'park_ell', 'charset': 'utf8'}
   sql: {'query': {}, 'update': {}}
 File: F:/InterfaceAutomation/casedata.xlsx
 Email:

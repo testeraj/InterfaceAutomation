@@ -4,7 +4,7 @@ import logging.config
 import shutil
 from functools import wraps
 from datetime import datetime
-from common.readconfig import LOG_CONFIG
+from common.readdata import LOG_CONFIG
 
 
 class LogRecord(object):
