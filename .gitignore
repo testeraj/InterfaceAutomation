@@ -76,7 +76,6 @@ fabric.properties
 # IntelliJ project files
 .idea
 *.iml
-*.txt
 *.zip
 *.log
 out
